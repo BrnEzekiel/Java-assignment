@@ -1,0 +1,52 @@
+
+/*
+ * Exercise 9: Stack vs Heap Memory
+ *
+ * a) Distinguish between stack memory and heap memory in Java.
+ *    Java programs use two primary areas of memory for data storage: the Stack and the Heap.
+ *
+ *    | Feature             | Stack Memory                                       | Heap Memory                                          |
+ *    | :------------------ | :------------------------------------------------- | :--------------------------------------------------- |
+ *    | **Purpose**         | Stores local variables, method call information, and primitive data values. Holds references to objects on the heap. | Stores all objects created by the `new` keyword and their instance variables.                      |
+ *    | **Lifecycle**       | LIFO (Last-In, First-Out) order. Data is allocated when a method is called and deallocated when it returns. | Managed by the Garbage Collector. Objects persist as long as they are reachable.          |
+ *    | **Access Speed**    | Faster access                                      | Slower access compared to stack                      |
+ *    | **Size**            | Smaller, fixed size per thread (can be configured) | Larger, dynamically allocated, shared across threads |
+ *    | **Memory Mgmt.**    | Automatic (JVM handles allocation/deallocation)    | Automatic (Garbage Collector handles deallocation)   |
+ *    | **Thread Specific** | Each thread has its own private stack              | Shared among all threads                             |
+ *
+ * b) State two items stored in stack memory and two items stored in heap memory.
+ *
+ *    *   **Items stored in Stack Memory:**
+ *        1.  **Local Variables:** Primitive type local variables (e.g., `int x = 5;`, `boolean flag = true;`)
+ *        2.  **Method Parameters:** Values passed to methods.
+ *        3.  **Return Addresses:** Where the program should return after a method call.
+ *        4.  **Object References:** Variables that hold memory addresses pointing to objects on the heap (e.g., `MyObject obj;`).
+ *
+ *    *   **Items stored in Heap Memory:**
+ *        1.  **Objects:** All instances of classes (e.g., `new String("hello")`, `new MyClass();`).
+ *        2.  **Instance Variables:** The fields (non-static) of objects.
+ *        3.  **Arrays:** All arrays, regardless of whether they store primitives or objects.
+ *        4.  **Static Variables (often considered part of the heap or a specific area like Metaspace, but logically associated with objects/classes):** Shared among all instances of a class.
+ *
+ * c) Why are local variables destroyed before objects?
+ *    Local variables are typically stored on the **stack**, while objects are stored on the **heap**. Their different memory
+ *    management mechanisms dictate their destruction order:
+ *
+ *    1.  **Stack-based Lifecycle:** Local variables (and method parameters) are part of a method's stack frame. When a
+ *        method is called, a new stack frame is pushed onto the stack. This frame contains all the local variables
+ *        for that method. As soon as the method completes its execution (returns), its entire stack frame is popped
+ *        off the stack, and all the local variables within it are immediately "destroyed" or become inaccessible.
+ *        This is a very efficient and deterministic process.
+ *
+ *    2.  **Heap-based Lifecycle (Garbage Collection):** Objects on the heap, however, have a different lifecycle. They
+ *        are created with the `new` keyword and persist as long as there are any active references pointing to them. An
+ *        object is only "destroyed" (garbage collected) when it is no longer reachable by the program, which is
+ *        determined by the garbage collector. This process is non-deterministic and can happen at any time after an
+ *        object becomes eligible.
+ *
+ *    Therefore, a local variable (which might hold a reference to an object on the heap) is destroyed as soon as its
+ *    method finishes, but the object it referenced on the heap will only be destroyed later by the garbage collector,
+ *    once no other strong references to it exist. The local variable (the reference itself) is destroyed, but the actual
+ *    object it pointed to might live on if other references to it still exist. If it was the *only* reference, then the
+ *    object becomes eligible for GC.
+ */

@@ -1,0 +1,59 @@
+
+/*
+ * Exercise 6: finalize() Method (Conceptual)
+ *
+ * a) What is the purpose of the `finalize()` method?
+ *    The `finalize()` method (declared in `java.lang.Object`) was originally intended to perform
+ *    cleanup operations on an object before it is garbage collected. It was meant to be overridden
+ *    by classes that needed to release non-Java resources (like file handles, network connections,
+ *    database connections, or native memory allocations) that were not automatically managed by
+ *    Java's garbage collector. The JVM would call an object's `finalize()` method once, just
+ *    before the object was actually reclaimed from memory.
+ *
+ * b) Why is the use of `finalize()` discouraged in modern Java?
+ *    The use of `finalize()` is strongly discouraged and has been deprecated for removal in modern
+ *    Java (e.g., Java 9+). Several reasons contribute to this:
+ *
+ *    1.  Unpredictable Execution Time: There is no guarantee when or even if `finalize()` will be called.
+ *        The garbage collector runs at its own discretion, and an object might never be finalized
+ *        if the program exits before GC has a chance to process it, or if memory pressure isn't high
+ *        enough to trigger GC. This makes it unreliable for critical resource cleanup.
+ *    2.  Performance Overhead: Finalizers can introduce significant performance overhead. Objects with
+ *        `finalize()` methods often require two garbage collection cycles to be fully reclaimed:
+ *        one to mark them as eligible and place them on a finalization queue, and a second cycle
+ *        after `finalize()` has run.
+ *    3.  Potential for Resource Leaks: Due to unpredictable execution, `finalize()` can *cause*
+ *        resource leaks if it's the sole mechanism for releasing resources. Resources might remain
+ *        open indefinitely.
+ *    4.  Security Vulnerabilities: A malicious `finalize()` method can "resurrect" an object, making
+ *        it reachable again and preventing its garbage collection. This can lead to denial-of-service
+ *        attacks or other security issues.
+ *    5.  Exceptions in Finalizers: If an exception is thrown during `finalize()` execution, it is
+ *        ignored by the JVM, and the object may not be properly cleaned up.
+ *    6.  Complexity and Debugging: Finalizers make code harder to reason about, maintain, and debug
+ *        due to their non-deterministic nature.
+ *
+ * c) State one alternative mechanism for resource management.
+ *    One alternative and highly recommended mechanism for resource management in Java is the
+ *    **try-with-resources statement** (introduced in Java 7).
+ *
+ *    Try-with-resources: This construct ensures that a resource (any object that implements the
+ *    `java.lang.AutoCloseable` interface) is automatically closed at the end of the `try` block,
+ *    regardless of whether the block completes normally or due to an exception. This provides a
+ *    robust and reliable way to manage resources like file streams, network connections, and
+ *    database connections, guaranteeing their release.
+ *
+ *    Example:
+ *    ```java
+ *    try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader("file.txt"))) {
+ *        String line;
+ *        while ((line = reader.readLine()) != null) {
+ *            System.out.println(line);
+ *        }
+ *    } catch (java.io.IOException e) {
+ *        System.err.println("Error reading file: " + e.getMessage());
+ *    }
+ *    ```
+ *    In this example, the `reader` object is automatically closed when the `try` block exits,
+ *    even if an `IOException` occurs.
+ */

@@ -1,0 +1,38 @@
+
+/*
+ * Exercise 10: Short Answer
+ *
+ * 1. What is an object lifecycle in Java?
+ *    The object lifecycle in Java refers to the various stages an object goes through from its creation to its destruction.
+ *    These stages typically include:
+ *    *   **Creation & Initialization:** Memory is allocated (on the heap) and the constructor is executed.
+ *    *   **In Use:** The object is referenced by active parts of the program and is performing its intended functions.
+ *    *   **Eligible for Garbage Collection:** The object is no longer reachable by any strong references from the running program.
+ *    *   **Finalization (Optional):** If the class overrides the `finalize()` method, it may be called by the Garbage Collector before reclamation.
+ *    *   **Deallocation:** The Garbage Collector reclaims the memory occupied by the object, making it available for new objects.
+ *
+ * 2. What is a constructor?
+ *    A constructor in Java is a special type of method that is automatically invoked when an object of a class is
+ *    created using the `new` keyword. Its primary purpose is to initialize the newly created object's state,
+ *    setting initial values for its instance variables and performing any necessary setup operations, ensuring
+ *    the object starts in a valid and consistent state. Constructors have the same name as the class and do not
+ *    have a return type.
+ *
+ * 3. What happens if no constructor is defined in a class?
+ *    If no constructor is explicitly defined in a class, the Java compiler automatically provides a
+ *    **default no-argument constructor**. This default constructor has no parameters, has the same access modifier
+ *    as the class (or public if the class is public), and simply calls the no-argument constructor of its superclass
+ *    (which is `Object()` if no other superclass is specified). This ensures that every class always has at least
+ *    one constructor, preventing compilation errors when attempting to create objects.
+ *
+ * 4. What is a reference variable?
+ *    A reference variable in Java is a variable that stores the memory address (or a reference) of an object on the heap,
+ *    rather than the object's actual data itself. It acts as a pointer to an object, allowing the program to interact
+ *    with and manipulate the object's data and methods. Multiple reference variables can point to the same object,
+ *    and when a reference variable is assigned to another, it's the memory address that is copied, not the object.
+ *
+ * 5. State one role of the garbage collector.
+ *    One primary role of the garbage collector in Java is **automatic memory management**. It automatically reclaims
+ *    memory occupied by objects that are no longer in use (i.e., not referenced by the running program), preventing
+ *    memory leaks and allowing developers to focus on application logic without manually allocating and deallocating memory.
+ */

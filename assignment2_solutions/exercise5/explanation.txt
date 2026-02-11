@@ -1,0 +1,50 @@
+
+/*
+ * Exercise 5: Garbage Collection Concepts
+ *
+ * a) Define garbage collection in Java.
+ *    Garbage Collection (GC) in Java is an automatic memory management process that identifies and reclaims memory
+ *    occupied by objects that are no longer referenced or reachable by the running program. Its primary purpose is
+ *    to free up memory resources, preventing memory leaks and allowing developers to focus on application logic
+ *    rather than manual memory deallocation. When the garbage collector runs, it scans the heap for "live"
+ *    objects (those still accessible by the program) and considers all other objects as "garbage" to be reclaimed.
+ *
+ * b) Explain two conditions under which an object becomes eligible for garbage collection.
+ *    An object becomes eligible for garbage collection when there are no longer any strong references pointing to it
+ *    from any active part of the program. Two primary conditions for eligibility are:
+ *
+ *    1.  No Strong References: The most common condition is when an object has no strong reference variables pointing to it.
+ *        This can occur if:
+ *        -   All reference variables pointing to the object are set to `null`.
+ *        -   Reference variables pointing to the object go out of scope (e.g., local variables after a method finishes).
+ *        -   Reference variables are reassigned to point to different objects.
+ *
+ *    2.  Island of Isolation: This occurs when a group of objects refer to each other, forming a "cycle," but are not
+ *        referenced by any other live objects in the program. Even though they have references among themselves, if no
+ *        external strong reference can reach this island, the entire group becomes eligible for GC.
+ *
+ * c) Why does Java not allow programmers to explicitly destroy objects?
+ *    Java does not allow programmers to explicitly destroy objects (like `free()` or `delete()` in C++) for several
+ *    key reasons, primarily to enhance memory safety, simplify programming, and prevent common pitfalls:
+ *
+ *    1.  Prevention of Memory Leaks and Dangling Pointers: Manual memory management is prone to errors. If programmers
+ *        were responsible for destroying objects, they could forget to deallocate memory (leading to memory leaks) or
+ *        deallocate memory too early while other parts of the program still hold references to it (leading to dangling
+ *        pointers and unpredictable crashes). Garbage collection eliminates these issues.
+ *
+ *    2.  Improved Program Robustness and Security: By automating memory management, Java reduces the chances of critical
+ *        bugs related to memory corruption. This makes applications more robust and secure by removing a class of
+ *        vulnerabilities that manual memory management often introduces.
+ *
+ *    3.  Simplicity for Developers: Developers can focus on the business logic of their applications without the complex
+ *        and error-prone task of managing memory lifecycle. This significantly speeds up development and reduces the
+ *        cognitive load on programmers.
+ *
+ *    4.  Platform Independence and JVM Optimization: The Java Virtual Machine (JVM) is designed to manage memory
+ *        efficiently across different platforms. The garbage collector is a highly optimized component of the JVM that
+ *        can use various algorithms to best suit the current memory usage and system resources. Allowing explicit
+ *        destruction would interfere with these optimizations and compromise platform independence.
+ *
+ *    In essence, Java's approach to memory management is a trade-off: it sacrifices some low-level control for greater
+ *    safety, reliability, and ease of development.
+ */
